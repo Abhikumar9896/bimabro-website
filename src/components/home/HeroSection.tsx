@@ -5,7 +5,6 @@ import { TRUST_POINTS } from '../../data/site'
 import { Badge } from '../ui/Badge'
 import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
-import heroImg from '../../assets/hero.png'
 
 const avatars = [
   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=96&h=96&q=80',
@@ -125,7 +124,7 @@ export function HeroSection() {
         >
           <div className="relative">
             <img
-              src={heroImg}
+              src="/images/hero-advisor.png"
               alt="BimaBro advisor with live policy insights"
               className="block h-auto w-full object-contain"
             />
