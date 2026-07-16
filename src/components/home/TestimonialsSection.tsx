@@ -50,10 +50,10 @@ export function TestimonialsSection() {
               {/* Play button */}
               <button
                 type="button"
-                className="absolute top-1/2 left-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-white/90 text-navy shadow-lg transition group-hover:bg-white"
+                className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-xl bg-black/30 text-white backdrop-blur-sm border border-white/20 transition group-hover:bg-black/50"
                 aria-label={`Play ${item.name}'s story`}
               >
-                <Play className="size-6 fill-navy" aria-hidden />
+                <Play className="size-5" aria-hidden />
               </button>
 
               {/* Name — serif at bottom-left */}
