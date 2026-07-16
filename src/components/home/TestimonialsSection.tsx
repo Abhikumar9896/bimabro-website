@@ -58,13 +58,13 @@ export function TestimonialsSection() {
               key={item.name}
               className="group relative aspect-[4/5] overflow-hidden rounded-[28px] bg-navy shadow-[var(--shadow-card)] cursor-pointer"
               onClick={() => {
-                if ('video' in item) handlePlay(item.name, index)
+                if (item.video) handlePlay(item.name, index)
               }}
             >
-              {'video' in item ? (
+              {item.video ? (
                 <>
                   <video
-                    ref={(el) => (videoRefs.current[index] = el)}
+                    ref={(el) => { videoRefs.current[index] = el }}
                     src={item.video}
                     className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
                     loop

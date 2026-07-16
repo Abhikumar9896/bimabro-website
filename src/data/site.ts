@@ -136,7 +136,12 @@ export const HOW_STEPS = [
   },
 ] as const
 
-export const TESTIMONIALS = [
+export const TESTIMONIALS: {
+  name: string
+  image: string
+  video?: string
+  quote: string
+}[] = [
   {
     name: 'Kusum',
     image: '/images/testimonial-kusum.png',
@@ -155,7 +160,7 @@ export const TESTIMONIALS = [
     video: '/images/testimonial-bandana.mp4',
     quote: 'Renewed my family cover in one call.',
   },
-] as const
+]
 
 export const CONTACT = {
   phones: ['+91 7838288040', '+91 9999321691'],
