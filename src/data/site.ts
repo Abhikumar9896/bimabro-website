@@ -140,16 +140,19 @@ export const TESTIMONIALS = [
   {
     name: 'Kusum',
     image: '/images/testimonial-kusum.png',
+    video: '/images/testimonial-kusum.mp4',
     quote: 'Claim settled without the usual runaround.',
   },
   {
     name: 'Ankush',
     image: '/images/testimonial-ankush.png',
+    video: '/images/testimonial-ankush.mp4',
     quote: 'Compared plans clearly before I bought.',
   },
   {
     name: 'Bandana',
     image: '/images/testimonial-bandana.png',
+    video: '/images/testimonial-bandana.mp4',
     quote: 'Renewed my family cover in one call.',
   },
 ] as const

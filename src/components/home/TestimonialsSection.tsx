@@ -1,10 +1,29 @@
-import { Play, Star } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { Play, Pause, Star } from 'lucide-react'
 import { TESTIMONIALS } from '../../data/site'
 import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
 import { SectionLabel } from '../ui/SectionLabel'
 
 export function TestimonialsSection() {
+  const [playingId, setPlayingId] = useState<string | null>(null)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+
+  const handlePlay = (name: string, index: number) => {
+    if (playingId === name) {
+      videoRefs.current[index]?.pause()
+      setPlayingId(null)
+    } else {
+      videoRefs.current.forEach((video, i) => {
+        if (i !== index) {
+          video?.pause()
+        }
+      })
+      videoRefs.current[index]?.play()
+      setPlayingId(name)
+    }
+  }
+
   return (
     <section className="bg-[#f7f9fc] py-16 md:py-24">
       <Container>
@@ -34,27 +53,47 @@ export function TestimonialsSection() {
 
         {/* Video cards */}
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {TESTIMONIALS.map((item) => (
+          {TESTIMONIALS.map((item, index) => (
             <article
               key={item.name}
-              className="group relative aspect-[4/5] overflow-hidden rounded-[28px] bg-navy shadow-[var(--shadow-card)]"
+              className="group relative aspect-[4/5] overflow-hidden rounded-[28px] bg-navy shadow-[var(--shadow-card)] cursor-pointer"
+              onClick={() => {
+                if ('video' in item) handlePlay(item.name, index)
+              }}
             >
-              <img
-                src={item.image}
-                alt={`${item.name} sharing their BimaBro story`}
-                className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-              />
+              {'video' in item ? (
+                <>
+                  <video
+                    ref={(el) => (videoRefs.current[index] = el)}
+                    src={item.video}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                    loop
+                    playsInline
+                  />
+                  {playingId === item.name && (
+                    <div className="absolute top-4 right-4 z-10 grid size-10 place-items-center rounded-full bg-black/40 text-white backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100">
+                      <Pause className="size-5" aria-hidden />
+                    </div>
+                  )}
+                  {playingId !== item.name && (
+                    <div className="absolute inset-0 grid place-items-center bg-black/10 transition-colors group-hover:bg-black/20">
+                      <div className="grid size-12 place-items-center rounded-xl bg-black/40 text-white backdrop-blur-sm border border-white/20 shadow-lg">
+                        <Play className="size-5" aria-hidden />
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <img
+                  src={item.image}
+                  alt={`${item.name} sharing their BimaBro story`}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                />
+              )}
               {/* Dark gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-navy/10" />
 
-              {/* Play button */}
-              <button
-                type="button"
-                className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-xl bg-black/30 text-white backdrop-blur-sm border border-white/20 transition group-hover:bg-black/50"
-                aria-label={`Play ${item.name}'s story`}
-              >
-                <Play className="size-5" aria-hidden />
-              </button>
+
 
               {/* Name — serif at bottom-left */}
               <p className="absolute bottom-6 left-6 font-serif text-2xl text-white sm:text-[1.75rem]">
